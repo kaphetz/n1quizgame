@@ -22,18 +22,7 @@ class HomeScreen extends StatelessWidget {
           child: Container(
             width: 200,
             height: 200,
-            child: NeumorphicButton(
-              style: NeumorphicStyle(
-                depth: 10,
-                boxShape: NeumorphicBoxShape.circle(),
-                shape: NeumorphicShape.concave,
-                border: NeumorphicBorder(width: 6, color: Colors.white60),
-              ),
-              child: Center(
-                child: _startButton(context),
-              ),
-              onPressed: () {},
-            ),
+            child: _startButton(context),
           ),
         ),
       ),
@@ -41,21 +30,33 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _startButton(BuildContext context) {
-    return Text(
-      'Start',
-      style: TextStyle(
-        fontSize: 50,
-        fontWeight: FontWeight.bold,
-        color: NeumorphicTheme.defaultTextColor(context),
+    return NeumorphicButton(
+      style: NeumorphicStyle(
+        surfaceIntensity: 0.40,
+        depth: 10,
+        boxShape: NeumorphicBoxShape.circle(),
+        shape: NeumorphicShape.concave,
+        border: NeumorphicBorder(width: 6, color: Colors.white24),
       ),
+      child: Center(
+        child: Text(
+          'Start',
+          style: TextStyle(
+            fontSize: 50,
+            fontWeight: FontWeight.bold,
+            color: NeumorphicTheme.defaultTextColor(context),
+          ),
+        ),
+      ),
+      onPressed: () {},
     );
   }
 
   Widget _title(BuildContext context) {
     return NeumorphicText(
-      "Learn Japanese",
+      "Quiz",
       style: NeumorphicStyle(
-        color: NeumorphicTheme.defaultTextColor(context), //customize color here
+        color: NeumorphicTheme.defaultTextColor(context)
       ),
       textStyle: NeumorphicTextStyle(
         fontSize: 26,
@@ -70,7 +71,8 @@ class HomeScreen extends StatelessWidget {
         intensity: 0.75,
         shape: NeumorphicShape.flat,
         depth: 10,
-        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(100)),
+        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+        border: NeumorphicBorder(width: 2, color: Colors.grey[200]),
       ),
       child: Icon(
         Icons.info_outlined,
@@ -87,7 +89,8 @@ class HomeScreen extends StatelessWidget {
         intensity: 0.75,
         shape: NeumorphicShape.flat,
         depth: 10,
-        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(100)),
+        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+        border: NeumorphicBorder(width: 2, color: Colors.grey[200]),
       ),
       child: Icon(
         Icons.lightbulb_outline,

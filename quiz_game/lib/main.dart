@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         title: 'Quiz game',
         themeMode: ThemeMode.light,
         theme: NeumorphicThemeData(
-          baseColor: Color(0xFFF4F5F5),
+          baseColor: Color(0xFFE8E7E7),
           lightSource: LightSource.topLeft,
           defaultTextColor: Color(0xFF636262),
           depth: 10,

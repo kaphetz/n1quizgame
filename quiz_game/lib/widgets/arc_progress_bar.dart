@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'dart:math' as math;
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
@@ -23,16 +23,15 @@ class _CircularArcState extends State<CircularArc>
   void initState() {
     super.initState();
     animationController =
-        AnimationController(duration: Duration(seconds: 3), vsync: this);
+        AnimationController(duration: Duration(seconds: 2), vsync: this);
     final curvedAnimation = CurvedAnimation(
         parent: animationController, curve: Curves.easeInOutCubic);
 
-    animation = Tween<double>(begin: 0.0, end: (math.pi*2)*0.95).animate(curvedAnimation)
-      ..addListener(() {
-        setState(() {
-
-        });
-      });
+    animation = Tween<double>(begin: 0.0, end: (math.pi * 2) * 0.75)
+        .animate(curvedAnimation)
+          ..addListener(() {
+            setState(() {});
+          });
     animationController.forward();
   }
 
@@ -48,6 +47,14 @@ class _CircularArcState extends State<CircularArc>
     return Container(
       child: Stack(
         children: [
+          CustomPaint(
+            size: Size(80, 80),
+            painter: ProgressArc(
+              isBackground: true,
+              arc: null,
+              progressColor: Colors.white70,
+            ),
+          ),
           CustomPaint(
             size: Size(80, 80),
             painter: ProgressArc(
@@ -83,8 +90,8 @@ class ProgressArc extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final rect = Rect.fromLTRB(0, 0, 80, 80);
-    final startAngle = -math.pi;
-    final sweepAngle = arc != null ? arc : math.pi;
+    final startAngle = -math.pi / 2;
+    final sweepAngle = arc != null ? arc : math.pi * 2;
     final useCenter = false;
     final paint = Paint()
       ..strokeCap = StrokeCap.round
@@ -95,7 +102,6 @@ class ProgressArc extends CustomPainter {
     if (!isBackground) {
       paint.shader = gradient.createShader(rect);
     }
-
 
     canvas.drawArc(rect, startAngle, sweepAngle, useCenter, paint);
   }

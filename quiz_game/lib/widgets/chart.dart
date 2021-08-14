@@ -9,24 +9,22 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ClipPath(
-        clipper: ChartClipper(
-          data: data,
-          maxValue: data.reduce(max),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.vertical(bottom: Radius.circular(5)),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Colors.teal,
-                Colors.lightBlue,
-                Colors.greenAccent,
-              ],
-            ),
+    return ClipPath(
+      clipper: ChartClipper(
+        data: data,
+        maxValue: data.reduce(max),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(5)),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.teal,
+              Colors.lightBlue,
+              Colors.greenAccent,
+            ],
           ),
         ),
       ),

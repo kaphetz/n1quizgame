@@ -1,12 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:quiz_game/screens/quiz_screen.dart';
 import 'package:quiz_game/widgets/arc_progress_bar.dart';
 import 'package:quiz_game/widgets/chart.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
 
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final data = [10.0, 30.0, 50.0, 40.0, 35.0, 55.0, 70.0, 30.0];
 
   Widget build(BuildContext context) {
@@ -21,8 +27,12 @@ class HomeScreen extends StatelessWidget {
       ),
       backgroundColor: NeumorphicTheme.baseColor(context),
       body: Padding(
-        padding:
-            const EdgeInsets.only(left: 16, top: 10, right: 16, bottom: 16),
+        padding: const EdgeInsets.only(
+          left: 16,
+          top: 10,
+          right: 16,
+          bottom: 16,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -34,11 +44,11 @@ class HomeScreen extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            _achievement(context),
+            _testWord(context),
             SizedBox(
               height: 20,
             ),
-            _lastScore(context),
+            _achievement(context),
           ],
         ),
       ),
@@ -47,10 +57,8 @@ class HomeScreen extends StatelessWidget {
 
   Widget _title(BuildContext context) {
     return NeumorphicText(
-      "Quiz",
-      style: NeumorphicStyle(
-        color: NeumorphicTheme.defaultTextColor(context)
-      ),
+      "JLPT N1",
+      style: NeumorphicStyle(color: NeumorphicTheme.defaultTextColor(context)),
       textStyle: NeumorphicTextStyle(
         fontSize: 26,
         fontWeight: FontWeight.bold,
@@ -116,7 +124,14 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push<dynamic>(
+            context,
+            MaterialPageRoute<dynamic>(
+              builder: (BuildContext context) => QuizScreen(),
+            ),
+          );
+        },
       ),
     );
   }
@@ -125,9 +140,85 @@ class HomeScreen extends StatelessWidget {
     return Expanded(
       child: Neumorphic(
         style: NeumorphicStyle(
-          shape: NeumorphicShape.convex,
+          shape: NeumorphicShape.flat,
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-          depth: -5,
+          depth: 5,
+          intensity: 0.8,
+          lightSource: LightSource.topLeft,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    NeumorphicText(
+                      "Last score",
+                      style: NeumorphicStyle(
+                          color: NeumorphicTheme.defaultTextColor(context)),
+                      textStyle: NeumorphicTextStyle(
+                        fontSize: 23,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    NeumorphicText(
+                      "All",
+                      style: NeumorphicStyle(
+                          color: NeumorphicTheme.defaultTextColor(context)),
+                      textStyle: NeumorphicTextStyle(
+                        fontSize: 23,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      CircularArc(),
+                      Neumorphic(
+                        padding: const EdgeInsets.all(12),
+                        style: NeumorphicStyle(
+                          shape: NeumorphicShape.flat,
+                          boxShape: NeumorphicBoxShape.roundRect(
+                              BorderRadius.circular(100)),
+                          depth: 4,
+                          intensity: 0.75,
+                          lightSource: LightSource.topLeft,
+                        ),
+                        child: NeumorphicText(
+                          "99",
+                          style: NeumorphicStyle(
+                              color: NeumorphicTheme.defaultTextColor(context)),
+                          textStyle: NeumorphicTextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _achievement(BuildContext context) {
+    return Expanded(
+      child: Neumorphic(
+        style: NeumorphicStyle(
+          shape: NeumorphicShape.flat,
+          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+          depth: 5,
           intensity: 0.8,
           lightSource: LightSource.topLeft,
         ),
@@ -138,9 +229,52 @@ class HomeScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.topLeft,
                   child: NeumorphicText(
-                    "Last score",
+                    "Achievement",
+                    style: NeumorphicStyle(
+                        color: NeumorphicTheme.defaultTextColor(context)),
+                    textStyle: NeumorphicTextStyle(
+                      fontSize: 23,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  child: Chart(
+                    data: data,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _testWord(BuildContext context) {
+    return Expanded(
+      child: Neumorphic(
+        style: NeumorphicStyle(
+          shape: NeumorphicShape.flat,
+          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+          depth: 5,
+          intensity: 0.8,
+          lightSource: LightSource.topLeft,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: NeumorphicText(
+                    "Tested word",
                     style: NeumorphicStyle(
                         color: NeumorphicTheme.defaultTextColor(context)),
                     textStyle: NeumorphicTextStyle(
@@ -169,8 +303,7 @@ class HomeScreen extends StatelessWidget {
                         child: NeumorphicText(
                           "99",
                           style: NeumorphicStyle(
-                              color:
-                                  NeumorphicTheme.defaultTextColor(context)),
+                              color: NeumorphicTheme.defaultTextColor(context)),
                           textStyle: NeumorphicTextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -187,49 +320,16 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _achievement(BuildContext context) {
-    return Expanded(
-      child: Neumorphic(
-        style: NeumorphicStyle(
-          shape: NeumorphicShape.convex,
-          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-          depth: -5,
-          intensity: 0.8,
-          lightSource: LightSource.topLeft,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: NeumorphicText(
-                    "Achievement",
-                    style: NeumorphicStyle(
-                        color: NeumorphicTheme.defaultTextColor(context)),
-                    textStyle: NeumorphicTextStyle(
-                      fontSize: 23,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Center(
-                  child: Container(
-                    child: Chart(
-                      data: data,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+class HexColor extends Color {
+  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
+
+  static int _getColorFromHex(String hexColor) {
+    hexColor = hexColor.toUpperCase().replaceAll('#', '');
+    if (hexColor.length == 6) {
+      hexColor = 'FF' + hexColor;
+    }
+    return int.parse(hexColor, radix: 16);
   }
 }

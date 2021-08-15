@@ -39,6 +39,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_native_splash:
+  color: "#E8E7E7"
+  image: assets/images/splash_icon.png
+  fullscreen: true
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

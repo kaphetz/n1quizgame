@@ -80,8 +80,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       child: Icon(
-        Icons.info_outlined,
-        size: 30,
+        CupertinoIcons.info,
+        size: 28,
         color: NeumorphicTheme.defaultTextColor(context),
       ),
       onPressed: () {},
@@ -97,9 +97,9 @@ class _HomeScreenState extends State<HomeScreen> {
         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(100)),
       ),
       child: Icon(
-        Icons.lightbulb_outline,
+        CupertinoIcons.lightbulb,
         color: NeumorphicTheme.defaultTextColor(context),
-        size: 30,
+        size: 28,
       ),
       onPressed: () {},
     );
@@ -160,7 +160,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     NeumorphicText(
                       "Last score",
                       style: NeumorphicStyle(
-                          color: NeumorphicTheme.defaultTextColor(context)),
+                          color: NeumorphicTheme.defaultTextColor(context),
+                        depth: 0,
+                      ),
                       textStyle: NeumorphicTextStyle(
                         fontSize: 23,
                         fontWeight: FontWeight.bold,
@@ -236,7 +238,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: NeumorphicText(
                     "Achievement",
                     style: NeumorphicStyle(
-                        color: NeumorphicTheme.defaultTextColor(context)),
+                        color: NeumorphicTheme.defaultTextColor(context),
+                      depth: 0,),
                     textStyle: NeumorphicTextStyle(
                       fontSize: 23,
                       fontWeight: FontWeight.bold,
@@ -279,7 +282,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: NeumorphicText(
                     "Tested word",
                     style: NeumorphicStyle(
-                        color: NeumorphicTheme.defaultTextColor(context)),
+                        color: NeumorphicTheme.defaultTextColor(context),
+                      depth: 0,),
                     textStyle: NeumorphicTextStyle(
                       fontSize: 23,
                       fontWeight: FontWeight.bold,

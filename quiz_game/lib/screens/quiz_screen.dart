@@ -295,7 +295,10 @@ class _QuizScreenState extends State<QuizScreen> {
   Widget _title(BuildContext context) {
     return NeumorphicText(
       "Quiz Game",
-      style: NeumorphicStyle(color: NeumorphicTheme.defaultTextColor(context)),
+      style: NeumorphicStyle(
+        color: NeumorphicTheme.defaultTextColor(context),
+        depth: 0,
+      ),
       textStyle: NeumorphicTextStyle(
         fontSize: 26,
         fontWeight: FontWeight.bold,

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:quiz_game/screens/info_screen.dart';
 import 'package:quiz_game/screens/quiz_screen.dart';
 import 'package:quiz_game/widgets/arc_progress_bar.dart';
 import 'package:quiz_game/widgets/chart.dart';
@@ -84,7 +85,13 @@ class _HomeScreenState extends State<HomeScreen> {
         size: 28,
         color: NeumorphicTheme.defaultTextColor(context),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push<dynamic>(
+          context,
+          MaterialPageRoute<dynamic>(
+            builder: (BuildContext context) => InfoScreen(),
+          ),
+        );},
     );
   }
 

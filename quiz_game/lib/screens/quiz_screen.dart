@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:quiz_game/widgets/wave_view.dart';
 
 class QuizScreen extends StatefulWidget {
   @override
@@ -8,13 +8,39 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
+  int _groupValue;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NeumorphicAppBar(
-        leading: _backButton(context),
+        iconTheme: IconThemeData(
+          color: NeumorphicTheme.defaultTextColor(context),
+        ),
+        automaticallyImplyLeading: true,
         actions: [
-          _guideButton(context),
+          Container(
+            width: 56,
+            height: 56,
+            decoration: BoxDecoration(
+              color: HexColor('#E8EDFE'),
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(60.0),
+                  bottomLeft: Radius.circular(60.0),
+                  bottomRight: Radius.circular(60.0),
+                  topRight: Radius.circular(60.0)),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                    color: Colors.grey.withOpacity(0.4),
+                    offset: const Offset(2, 2),
+                    blurRadius: 4),
+              ],
+            ),
+            child: WaveView(
+              height: 56,
+              percentageValue: 50.0,
+            ),
+          ),
         ],
         title: _title(context),
         centerTitle: true,
@@ -23,7 +49,6 @@ class _QuizScreenState extends State<QuizScreen> {
       body: Padding(
         padding: const EdgeInsets.only(
           left: 16,
-          top: 10,
           right: 16,
           bottom: 16,
         ),
@@ -39,6 +64,7 @@ class _QuizScreenState extends State<QuizScreen> {
               height: 40,
             ),
             _answer(context),
+            _nextButton(context),
           ],
         ),
       ),
@@ -71,7 +97,7 @@ class _QuizScreenState extends State<QuizScreen> {
         style: NeumorphicStyle(
           shape: NeumorphicShape.convex,
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(15)),
-          depth: -5,
+          depth: -4,
           intensity: 0.75,
           lightSource: LightSource.topLeft,
         ),
@@ -95,170 +121,174 @@ class _QuizScreenState extends State<QuizScreen> {
   Widget _answer(BuildContext context) {
     return Expanded(
       flex: 10,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  height: 60,
-                  child: NeumorphicButton(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            NeumorphicRadio(
+              duration: const Duration(milliseconds: 50),
+              style: NeumorphicRadioStyle(
+                intensity: 0.75,
+                unselectedDepth: 4,
+              ),
+              child: SizedBox(
+                height: 50,
+                width: 200,
+                child: Center(
+                  child: NeumorphicText(
+                    'とうろく',
                     style: NeumorphicStyle(
-                      surfaceIntensity: 0.40,
-                      depth: 4,
-                      shape: NeumorphicShape.flat,
-                      border: NeumorphicBorder(width: 1, color: Colors.white10),
+                      color: NeumorphicTheme.defaultTextColor(context),
+                      depth: 0,
                     ),
-                    child: Center(
-                      child: Text(
-                        'しゅうしょく',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: NeumorphicTheme.defaultTextColor(context),
-                        ),
-                      ),
+                    textStyle: NeumorphicTextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-                    onPressed: () {
-                      Navigator.push<dynamic>(
-                        context,
-                        MaterialPageRoute<dynamic>(
-                          builder: (BuildContext context) => QuizScreen(),
-                        ),
-                      );
-                    },
                   ),
                 ),
               ),
-              SizedBox(
-                width: 20,
+              value: 1,
+              groupValue: _groupValue,
+              onChanged: (value) {
+                setState(() {
+                  _groupValue = value;
+                });
+              },
+            ),
+            SizedBox(height: 15),
+            NeumorphicRadio(
+              duration: const Duration(milliseconds: 50),
+              style: NeumorphicRadioStyle(
+                intensity: 0.75,
+                unselectedDepth: 4,
               ),
-              Expanded(
-                child: Container(
-                  height: 60,
-                  child: NeumorphicButton(
+              child: SizedBox(
+                height: 50,
+                width: 50,
+                child: Center(
+                  child: NeumorphicText(
+                    'とうろく',
                     style: NeumorphicStyle(
-                      surfaceIntensity: 0.40,
-                      depth: 4,
-                      shape: NeumorphicShape.flat,
-                      border: NeumorphicBorder(width: 1, color: Colors.white10),
+                      color: NeumorphicTheme.defaultTextColor(context),
+                      depth: 0,
                     ),
-                    child: Center(
-                      child: Text(
-                        'とうろく',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: NeumorphicTheme.defaultTextColor(context),
-                        ),
-                      ),
+                    textStyle: NeumorphicTextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-                    onPressed: () {
-                      Navigator.push<dynamic>(
-                        context,
-                        MaterialPageRoute<dynamic>(
-                          builder: (BuildContext context) => QuizScreen(),
-                        ),
-                      );
-                    },
                   ),
                 ),
               ),
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  height: 60,
-                  child: NeumorphicButton(
+              value: 2,
+              groupValue: _groupValue,
+              onChanged: (value) {
+                setState(() {
+                  _groupValue = value;
+                });
+              },
+            ),
+            SizedBox(height: 15),
+            NeumorphicRadio(
+              duration: const Duration(milliseconds: 50),
+              style: NeumorphicRadioStyle(
+                intensity: 0.75,
+                unselectedDepth: 4,
+              ),
+              child: SizedBox(
+                height: 50,
+                width: 50,
+                child: Center(
+                  child: NeumorphicText(
+                    'とうろく',
                     style: NeumorphicStyle(
-                      surfaceIntensity: 0.40,
-                      depth: 4,
-                      shape: NeumorphicShape.flat,
-                      border: NeumorphicBorder(width: 1, color: Colors.white10),
+                      color: NeumorphicTheme.defaultTextColor(context),
+                      depth: 0,
                     ),
-                    child: Center(
-                      child: Text(
-                        'しゅうしょく',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: NeumorphicTheme.defaultTextColor(context),
-                        ),
-                      ),
+                    textStyle: NeumorphicTextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-                    onPressed: () {
-                      Navigator.push<dynamic>(
-                        context,
-                        MaterialPageRoute<dynamic>(
-                          builder: (BuildContext context) => QuizScreen(),
-                        ),
-                      );
-                    },
                   ),
                 ),
               ),
-              SizedBox(
-                width: 20,
+              value: 3,
+              groupValue: _groupValue,
+              onChanged: (value) {
+                setState(() {
+                  _groupValue = value;
+                });
+              },
+            ),
+            SizedBox(height: 15),
+            NeumorphicRadio(
+              style: NeumorphicRadioStyle(
+                intensity: 0.75,
+                unselectedDepth: 4,
               ),
-              Expanded(
-                child: Container(
-                  height: 60,
-                  child: NeumorphicButton(
+              duration: const Duration(milliseconds: 50),
+              child: SizedBox(
+                height: 50,
+                width: 50,
+                child: Center(
+                  child: NeumorphicText(
+                    'とうろく',
                     style: NeumorphicStyle(
-                      surfaceIntensity: 0.40,
-                      depth: 4,
-                      shape: NeumorphicShape.flat,
-                      border: NeumorphicBorder(width: 1, color: Colors.white10),
+                      color: NeumorphicTheme.defaultTextColor(context),
+                      depth: 0,
                     ),
-                    child: Center(
-                      child: Text(
-                        'とうろく',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: NeumorphicTheme.defaultTextColor(context),
-                        ),
-                      ),
+                    textStyle: NeumorphicTextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-                    onPressed: () {
-                      Navigator.push<dynamic>(
-                        context,
-                        MaterialPageRoute<dynamic>(
-                          builder: (BuildContext context) => QuizScreen(),
-                        ),
-                      );
-                    },
                   ),
                 ),
               ),
-            ],
-          ),
-        ],
+              value: 4,
+              groupValue: _groupValue,
+              onChanged: (value) {
+                setState(() {
+                  _groupValue = value;
+                });
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _backButton(BuildContext context) {
+  Widget _nextButton(BuildContext context) {
     return NeumorphicButton(
       style: NeumorphicStyle(
         intensity: 0.75,
         shape: NeumorphicShape.flat,
-        depth: 5,
+        depth: 4,
         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(100)),
       ),
-      child: Icon(
-        Icons.arrow_back_ios_sharp,
-        color: NeumorphicTheme.defaultTextColor(context),
-        size: 30,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          NeumorphicText(
+            'Next',
+            style: NeumorphicStyle(
+              color: NeumorphicTheme.defaultTextColor(context),
+              depth: 0,
+            ),
+            textStyle: NeumorphicTextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Icon(
+            Icons.arrow_right_outlined,
+            color: NeumorphicTheme.defaultTextColor(context),
+            size: 30,
+          ),
+        ],
       ),
-      onPressed: () {
-        Navigator.pop(context);
-      },
+      onPressed: () {},
     );
   }
 
@@ -273,7 +303,7 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
-  Widget _guideButton(BuildContext context) {
+/*  Widget _guideButton(BuildContext context) {
     return NeumorphicButton(
       style: NeumorphicStyle(
         intensity: 0.75,
@@ -290,5 +320,17 @@ class _QuizScreenState extends State<QuizScreen> {
       ),
       onPressed: () {},
     );
+  }*/
+}
+
+class HexColor extends Color {
+  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
+
+  static int _getColorFromHex(String hexColor) {
+    hexColor = hexColor.toUpperCase().replaceAll('#', '');
+    if (hexColor.length == 6) {
+      hexColor = 'FF' + hexColor;
+    }
+    return int.parse(hexColor, radix: 16);
   }
 }

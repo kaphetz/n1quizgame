@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           baseColor: Color(0xFFE8E7E7),
           lightSource: LightSource.topLeft,
           defaultTextColor: Color(0xFF636262),
-          depth: 10,
+          depth: 6,
         ),
         darkTheme: NeumorphicThemeData(
           baseColor: Color(0xFF3E3E3E),

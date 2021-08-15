@@ -142,22 +142,19 @@ class _WaveViewState extends State<WaveView> with TickerProviderStateMixin {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 20,
+                        fontSize: 15,
                         letterSpacing: 0.0,
                         color: Colors.white,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 3.0),
-                      child: Text(
-                        '%',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                          letterSpacing: 0.0,
-                          color: Colors.white,
-                        ),
+                    Text(
+                      '%',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15,
+                        letterSpacing: 0.0,
+                        color: Colors.white,
                       ),
                     ),
                   ],

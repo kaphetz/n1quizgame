@@ -58,7 +58,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _title(BuildContext context) {
     return NeumorphicText(
       "JLPT N1",
-      style: NeumorphicStyle(color: NeumorphicTheme.defaultTextColor(context)),
+      style: NeumorphicStyle(
+        color: NeumorphicTheme.defaultTextColor(context),
+        depth: 0,
+      ),
       textStyle: NeumorphicTextStyle(
         fontSize: 26,
         fontWeight: FontWeight.bold,
@@ -71,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
       style: NeumorphicStyle(
         intensity: 0.75,
         shape: NeumorphicShape.flat,
-        depth: 5,
+        depth: 4,
         boxShape: NeumorphicBoxShape.roundRect(
           BorderRadius.circular(100),
         ),
@@ -90,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
       style: NeumorphicStyle(
         intensity: 0.75,
         shape: NeumorphicShape.flat,
-        depth: 5,
+        depth: 4,
         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(100)),
       ),
       child: Icon(
@@ -142,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
         style: NeumorphicStyle(
           shape: NeumorphicShape.flat,
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-          depth: 5,
+          depth: 4,
           intensity: 0.8,
           lightSource: LightSource.topLeft,
         ),
@@ -218,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
         style: NeumorphicStyle(
           shape: NeumorphicShape.flat,
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-          depth: 5,
+          depth: 4,
           intensity: 0.8,
           lightSource: LightSource.topLeft,
         ),
@@ -261,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
         style: NeumorphicStyle(
           shape: NeumorphicShape.flat,
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-          depth: 5,
+          depth: 4,
           intensity: 0.8,
           lightSource: LightSource.topLeft,
         ),
@@ -322,14 +325,3 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class HexColor extends Color {
-  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
-
-  static int _getColorFromHex(String hexColor) {
-    hexColor = hexColor.toUpperCase().replaceAll('#', '');
-    if (hexColor.length == 6) {
-      hexColor = 'FF' + hexColor;
-    }
-    return int.parse(hexColor, radix: 16);
-  }
-}

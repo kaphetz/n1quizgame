@@ -15,22 +15,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-      return NeumorphicApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Quiz game',
-        themeMode: ThemeMode.light,
-        theme: NeumorphicThemeData(
-          baseColor: Color(0xFFE8E7E7),
-          lightSource: LightSource.topLeft,
-          defaultTextColor: Color(0xFF636262),
-          depth: 6,
+      return WillPopScope(
+        onWillPop: () async => false,
+        child: NeumorphicApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Quiz game',
+          themeMode: ThemeMode.light,
+          theme: NeumorphicThemeData(
+            baseColor: Color(0xFFE8E7E7),
+            lightSource: LightSource.topLeft,
+            defaultTextColor: Color(0xFF636262),
+            depth: 6,
+          ),
+          darkTheme: NeumorphicThemeData(
+            baseColor: Color(0xFF3E3E3E),
+            lightSource: LightSource.topLeft,
+            depth: 6,
+          ),
+          home: HomeScreen(),
         ),
-        darkTheme: NeumorphicThemeData(
-          baseColor: Color(0xFF3E3E3E),
-          lightSource: LightSource.topLeft,
-          depth: 6,
-        ),
-        home: HomeScreen(),
       );
     });
   }

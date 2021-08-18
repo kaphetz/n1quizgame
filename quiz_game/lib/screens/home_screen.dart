@@ -175,15 +175,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    NeumorphicText(
-                      "All",
-                      style: NeumorphicStyle(
-                          color: NeumorphicTheme.defaultTextColor(context)),
-                      textStyle: NeumorphicTextStyle(
-                        fontSize: 23,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                   ],
                 ),
               ),

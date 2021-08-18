@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:quiz_game/screens/result_screen.dart';
 import 'package:quiz_game/widgets/wave_view.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -12,60 +13,63 @@ class _QuizScreenState extends State<QuizScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: NeumorphicAppBar(
-        iconTheme: IconThemeData(
-          color: NeumorphicTheme.defaultTextColor(context),
-        ),
-        automaticallyImplyLeading: true,
-        actions: [
-          Container(
-            width: 56,
-            height: 56,
-            decoration: BoxDecoration(
-              color: HexColor('#E8EDFE'),
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(60.0),
-                  bottomLeft: Radius.circular(60.0),
-                  bottomRight: Radius.circular(60.0),
-                  topRight: Radius.circular(60.0)),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.4),
-                    offset: const Offset(2, 2),
-                    blurRadius: 4),
-              ],
-            ),
-            child: WaveView(
-              height: 56,
-              percentageValue: 50.0,
-            ),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: NeumorphicAppBar(
+          iconTheme: IconThemeData(
+            color: NeumorphicTheme.defaultTextColor(context),
           ),
-        ],
-        title: _title(context),
-        centerTitle: true,
-      ),
-      backgroundColor: NeumorphicTheme.baseColor(context),
-      body: Padding(
-        padding: const EdgeInsets.only(
-          left: 16,
-          right: 16,
-          bottom: 16,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _question(context),
-            SizedBox(
-              height: 20,
+          automaticallyImplyLeading: true,
+          actions: [
+            Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                color: HexColor('#E8EDFE'),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(60.0),
+                    bottomLeft: Radius.circular(60.0),
+                    bottomRight: Radius.circular(60.0),
+                    topRight: Radius.circular(60.0)),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: Colors.grey.withOpacity(0.4),
+                      offset: const Offset(2, 2),
+                      blurRadius: 4),
+                ],
+              ),
+              child: WaveView(
+                height: 56,
+                percentageValue: 50.0,
+              ),
             ),
-            _description(context),
-            SizedBox(
-              height: 40,
-            ),
-            _answer(context),
-            _nextButton(context),
           ],
+          title: _title(context),
+          centerTitle: true,
+        ),
+        backgroundColor: NeumorphicTheme.baseColor(context),
+        body: Padding(
+          padding: const EdgeInsets.only(
+            left: 16,
+            right: 16,
+            bottom: 16,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _question(context),
+              SizedBox(
+                height: 20,
+              ),
+              _description(context),
+              SizedBox(
+                height: 40,
+              ),
+              _answer(context),
+              _nextButton(context),
+            ],
+          ),
         ),
       ),
     );
@@ -288,7 +292,14 @@ class _QuizScreenState extends State<QuizScreen> {
           ),
         ],
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push<dynamic>(
+          context,
+          MaterialPageRoute<dynamic>(
+            builder: (BuildContext context) => ResultScreen(),
+          ),
+        );
+      },
     );
   }
 

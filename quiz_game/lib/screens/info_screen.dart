@@ -63,14 +63,14 @@ class InfoScreen extends StatelessWidget {
               height: 16,
             ),
             Text(
-              'My Food được phát triển bởi KaphetzSoft.',
+              'JLPT N1 Quiz được phát triển bởi KaphetzSoft.',
               style: TextStyle(fontSize: 16, color: NeumorphicTheme.defaultTextColor(context),),
             ),
             SizedBox(
               height: 16,
             ),
             Text(
-              'Liên hệ với chúng tôi: kienpt.japan@gmail.com',
+              'Liên hệ với chúng tôi qua email: kienpt.japan@gmail.com',
               style: TextStyle(
                 fontSize: 16,
                 color: NeumorphicTheme.defaultTextColor(context),

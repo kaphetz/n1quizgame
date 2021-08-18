@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
         depth: 0,
       ),
       textStyle: NeumorphicTextStyle(
-        fontSize: 26,
+        fontSize: 27,
         fontWeight: FontWeight.bold,
       ),
     );

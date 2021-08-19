@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:quiz_game/screens/info_screen.dart';
-import 'package:quiz_game/screens/quiz_screen.dart';
 import 'package:quiz_game/widgets/arc_progress_bar.dart';
 import 'package:quiz_game/widgets/chart.dart';
 
@@ -17,40 +15,43 @@ class _HomeScreenState extends State<HomeScreen> {
   final data = [10.0, 30.0, 50.0, 40.0, 35.0, 55.0, 70.0, 30.0];
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: NeumorphicAppBar(
-        leading: _changeThemeButton(context),
-        actions: [
-          _infoButton(context),
-        ],
-        title: _title(context),
-        centerTitle: true,
-      ),
-      backgroundColor: NeumorphicTheme.baseColor(context),
-      body: Padding(
-        padding: const EdgeInsets.only(
-          left: 16,
-          top: 10,
-          right: 16,
-          bottom: 16,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _startButton(context),
-            SizedBox(
-              height: 40,
-            ),
-            _lastScore(context),
-            SizedBox(
-              height: 20,
-            ),
-            _testWord(context),
-            SizedBox(
-              height: 20,
-            ),
-            _achievement(context),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: NeumorphicAppBar(
+          leading: _changeThemeButton(context),
+          actions: [
+            _infoButton(context),
           ],
+          title: _title(context),
+          centerTitle: true,
+        ),
+        backgroundColor: NeumorphicTheme.baseColor(context),
+        body: Padding(
+          padding: const EdgeInsets.only(
+            left: 16,
+            top: 10,
+            right: 16,
+            bottom: 16,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _startButton(context),
+              SizedBox(
+                height: 40,
+              ),
+              _lastScore(context),
+              SizedBox(
+                height: 20,
+              ),
+              _testWord(context),
+              SizedBox(
+                height: 20,
+              ),
+              _achievement(context),
+            ],
+          ),
         ),
       ),
     );
@@ -86,12 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
         color: NeumorphicTheme.defaultTextColor(context),
       ),
       onPressed: () {
-        Navigator.push<dynamic>(
-          context,
-          MaterialPageRoute<dynamic>(
-            builder: (BuildContext context) => InfoScreen(),
-          ),
-        );},
+        Navigator.pushNamed(context, '/info');
+      },
     );
   }
 
@@ -135,12 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         onPressed: () {
-          Navigator.push<dynamic>(
-            context,
-            MaterialPageRoute<dynamic>(
-              builder: (BuildContext context) => QuizScreen(),
-            ),
-          );
+          Navigator.pushNamed(context, '/quiz');
         },
       ),
     );

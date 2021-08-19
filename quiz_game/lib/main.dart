@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:quiz_game/blocs/quiz_game_bloc_observer.dart';
 import 'package:quiz_game/screens/home_screen.dart';
+import 'package:quiz_game/screens/info_screen.dart';
+import 'package:quiz_game/screens/quiz_screen.dart';
+import 'package:quiz_game/screens/result_screen.dart';
 import 'package:sizer/sizer.dart';
 
 Future main() async {
@@ -18,6 +21,13 @@ class MyApp extends StatelessWidget {
       return WillPopScope(
         onWillPop: () async => false,
         child: NeumorphicApp(
+          initialRoute: '/home',
+          routes: <String, WidgetBuilder>{
+            '/home': (context) => HomeScreen(),
+            '/quiz': (context) => QuizScreen(),
+            '/result': (context) => ResultScreen(),
+            '/info': (context) => InfoScreen(),
+          },
           debugShowCheckedModeBanner: false,
           title: 'Quiz game',
           themeMode: ThemeMode.light,

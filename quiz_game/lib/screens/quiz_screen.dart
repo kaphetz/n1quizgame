@@ -20,7 +20,7 @@ class _QuizScreenState extends State<QuizScreen> {
           iconTheme: IconThemeData(
             color: NeumorphicTheme.defaultTextColor(context),
           ),
-          automaticallyImplyLeading: true,
+          leading: _homeButton(context),
           actions: [
             Container(
               width: 56,
@@ -293,12 +293,7 @@ class _QuizScreenState extends State<QuizScreen> {
         ],
       ),
       onPressed: () {
-        Navigator.push<dynamic>(
-          context,
-          MaterialPageRoute<dynamic>(
-            builder: (BuildContext context) => ResultScreen(),
-          ),
-        );
+        Navigator.pushNamed(context, '/result');
       },
     );
   }
@@ -317,24 +312,25 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
-/*  Widget _guideButton(BuildContext context) {
+  Widget _homeButton(BuildContext context) {
     return NeumorphicButton(
       style: NeumorphicStyle(
         intensity: 0.75,
         shape: NeumorphicShape.flat,
-        depth: 5,
+        depth: 4,
         boxShape: NeumorphicBoxShape.roundRect(
           BorderRadius.circular(100),
         ),
       ),
       child: Icon(
-        AntDesign.question,
+        Icons.home,
         size: 30,
         color: NeumorphicTheme.defaultTextColor(context),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, '/home');},
     );
-  }*/
+  }
 }
 
 class HexColor extends Color {

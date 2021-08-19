@@ -88,12 +88,7 @@ class ResultScreen extends StatelessWidget {
               ],
             ),
             onPressed: () {
-              Navigator.push<dynamic>(
-                context,
-                MaterialPageRoute<dynamic>(
-                  builder: (BuildContext context) => HomeScreen(),
-                ),
-              );
+              Navigator.pushNamed(context, '/home');
             },
           ),
         ),
@@ -134,12 +129,7 @@ class ResultScreen extends StatelessWidget {
               ],
             ),
             onPressed: () {
-              Navigator.push<dynamic>(
-                context,
-                MaterialPageRoute<dynamic>(
-                  builder: (BuildContext context) => QuizScreen(),
-                ),
-              );
+              Navigator.pushNamed(context, '/quiz');
             },
           ),
         ),

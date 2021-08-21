@@ -111,8 +111,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _startButton(BuildContext context) {
     return Container(
-      width: 180,
-      height: 180,
+      width: 150,
+      height: 150,
       child: NeumorphicButton(
         style: NeumorphicStyle(
           surfaceIntensity: 0.40,
@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Text(
             'Start',
             style: TextStyle(
-              fontSize: 50,
+              fontSize: 45,
               fontWeight: FontWeight.bold,
               color: NeumorphicTheme.defaultTextColor(context),
             ),
@@ -172,31 +172,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Expanded(
                 child: Container(
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      CircularArc(),
-                      Neumorphic(
-                        padding: const EdgeInsets.all(12),
-                        style: NeumorphicStyle(
-                          shape: NeumorphicShape.flat,
-                          boxShape: NeumorphicBoxShape.roundRect(
-                              BorderRadius.circular(100)),
-                          depth: 4,
-                          intensity: 0.75,
-                          lightSource: LightSource.topLeft,
-                        ),
-                        child: NeumorphicText(
-                          "99",
-                          style: NeumorphicStyle(
-                              color: NeumorphicTheme.defaultTextColor(context)),
-                          textStyle: NeumorphicTextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
+                  child:  NeumorphicProgress(
+                    height: 15,
+                    percent: 1,
                   ),
                 ),
               ),
@@ -283,10 +261,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Expanded(
                 child: Container(
-                  child: Stack(
+                  child:NeumorphicProgress(
+                    height: 15,
+                    percent: 1,
+                  ),
+
+                  /*Stack(
                     alignment: Alignment.center,
                     children: [
-                      CircularArc(),
                       Neumorphic(
                         padding: const EdgeInsets.all(12),
                         style: NeumorphicStyle(
@@ -308,7 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ],
-                  ),
+                  ),*/
                 ),
               ),
             ],

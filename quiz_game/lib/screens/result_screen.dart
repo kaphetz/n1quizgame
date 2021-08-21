@@ -88,7 +88,8 @@ class ResultScreen extends StatelessWidget {
               ],
             ),
             onPressed: () {
-              Navigator.pushNamed(context, '/home');
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
             },
           ),
         ),
@@ -129,7 +130,8 @@ class ResultScreen extends StatelessWidget {
               ],
             ),
             onPressed: () {
-              Navigator.pushNamed(context, '/quiz');
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('/quiz', (Route<dynamic> route) => false);
             },
           ),
         ),

@@ -328,7 +328,9 @@ class _QuizScreenState extends State<QuizScreen> {
         color: NeumorphicTheme.defaultTextColor(context),
       ),
       onPressed: () {
-        Navigator.pushNamed(context, '/home');},
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+      }
     );
   }
 }

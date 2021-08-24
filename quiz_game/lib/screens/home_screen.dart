@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:quiz_game/widgets/arc_progress_bar.dart';
 import 'package:quiz_game/widgets/chart.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -41,11 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 40,
               ),
-              _lastScore(context),
-              SizedBox(
-                height: 20,
-              ),
-              _testWord(context),
+              _pointsOfGame(context),
               SizedBox(
                 height: 20,
               ),
@@ -76,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
       style: NeumorphicStyle(
         intensity: 0.75,
         shape: NeumorphicShape.flat,
-        depth: 4,
+        depth: 2,
         boxShape: NeumorphicBoxShape.roundRect(
           BorderRadius.circular(100),
         ),
@@ -97,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
       style: NeumorphicStyle(
         intensity: 0.75,
         shape: NeumorphicShape.flat,
-        depth: 4,
+        depth: 2,
         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(100)),
       ),
       child: Icon(
@@ -116,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: NeumorphicButton(
         style: NeumorphicStyle(
           surfaceIntensity: 0.40,
-          depth: 7,
+          depth: 4,
           boxShape: NeumorphicBoxShape.circle(),
           shape: NeumorphicShape.concave,
           border: NeumorphicBorder(width: 6, color: Colors.white24),
@@ -138,49 +134,159 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _lastScore(BuildContext context) {
-    return Expanded(
-      child: Neumorphic(
-        style: NeumorphicStyle(
-          shape: NeumorphicShape.flat,
-          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-          depth: 4,
-          intensity: 0.8,
-          lightSource: LightSource.topLeft,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    NeumorphicText(
-                      "Last score",
-                      style: NeumorphicStyle(
-                          color: NeumorphicTheme.defaultTextColor(context),
-                        depth: 0,
-                      ),
-                      textStyle: NeumorphicTextStyle(
-                        fontSize: 23,
-                        fontWeight: FontWeight.bold,
-                      ),
+  Widget _pointsOfGame(BuildContext context) {
+    return Container(
+      height: 200,
+      child: Row(
+        children: [
+          Expanded(
+            child: Neumorphic(
+              style: NeumorphicStyle(
+                shape: NeumorphicShape.flat,
+                boxShape:
+                    NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                depth: 2,
+                intensity: 0.8,
+                lightSource: LightSource.topLeft,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  NeumorphicText(
+                    "Last game",
+                    style: NeumorphicStyle(
+                      color: NeumorphicTheme.defaultTextColor(context),
+                      depth: 0,
                     ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  child:  NeumorphicProgress(
-                    height: 15,
-                    percent: 1,
+                    textStyle: NeumorphicTextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      NeumorphicText(
+                        "80",
+                        style: NeumorphicStyle(
+                          color: NeumorphicTheme.defaultTextColor(context),
+                          depth: 0,
+                        ),
+                        textStyle: NeumorphicTextStyle(
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      NeumorphicText(
+                        " points",
+                        style: NeumorphicStyle(
+                          color: NeumorphicTheme.defaultTextColor(context),
+                          depth: 0,
+                        ),
+                        textStyle: NeumorphicTextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  NeumorphicText(
+                    "in 130 seconds",
+                    style: NeumorphicStyle(
+                      color: NeumorphicTheme.defaultTextColor(context),
+                      depth: 0,
+                    ),
+                    textStyle: NeumorphicTextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+          SizedBox(
+            width: 20,
+          ),
+          Expanded(
+            child: Neumorphic(
+              style: NeumorphicStyle(
+                shape: NeumorphicShape.flat,
+                boxShape:
+                    NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                depth: 2,
+                intensity: 0.8,
+                lightSource: LightSource.topLeft,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  NeumorphicText(
+                    "Best game",
+                    style: NeumorphicStyle(
+                      color: NeumorphicTheme.defaultTextColor(context),
+                      depth: 0,
+                    ),
+                    textStyle: NeumorphicTextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      NeumorphicText(
+                        "100",
+                        style: NeumorphicStyle(
+                          color: NeumorphicTheme.defaultTextColor(context),
+                          depth: 0,
+                        ),
+                        textStyle: NeumorphicTextStyle(
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      NeumorphicText(
+                        " points",
+                        style: NeumorphicStyle(
+                          color: NeumorphicTheme.defaultTextColor(context),
+                          depth: 0,
+                        ),
+                        textStyle: NeumorphicTextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  NeumorphicText(
+                    "in 60 seconds",
+                    style: NeumorphicStyle(
+                      color: NeumorphicTheme.defaultTextColor(context),
+                      depth: 0,
+                    ),
+                    textStyle: NeumorphicTextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -191,106 +297,37 @@ class _HomeScreenState extends State<HomeScreen> {
         style: NeumorphicStyle(
           shape: NeumorphicShape.flat,
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-          depth: 4,
+          depth: 2,
           intensity: 0.8,
           lightSource: LightSource.topLeft,
         ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: NeumorphicText(
-                    "Achievement",
-                    style: NeumorphicStyle(
+                flex: 1,
+                child: Column(
+                  children: [
+                    NeumorphicText(
+                      "Achievement",
+                      style: NeumorphicStyle(
                         color: NeumorphicTheme.defaultTextColor(context),
-                      depth: 0,),
-                    textStyle: NeumorphicTextStyle(
-                      fontSize: 23,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  child: Chart(
-                    data: data,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _testWord(BuildContext context) {
-    return Expanded(
-      child: Neumorphic(
-        style: NeumorphicStyle(
-          shape: NeumorphicShape.flat,
-          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-          depth: 4,
-          intensity: 0.8,
-          lightSource: LightSource.topLeft,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: NeumorphicText(
-                    "Tested word",
-                    style: NeumorphicStyle(
-                        color: NeumorphicTheme.defaultTextColor(context),
-                      depth: 0,),
-                    textStyle: NeumorphicTextStyle(
-                      fontSize: 23,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  child:NeumorphicProgress(
-                    height: 15,
-                    percent: 1,
-                  ),
-
-                  /*Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Neumorphic(
-                        padding: const EdgeInsets.all(12),
-                        style: NeumorphicStyle(
-                          shape: NeumorphicShape.flat,
-                          boxShape: NeumorphicBoxShape.roundRect(
-                              BorderRadius.circular(100)),
-                          depth: 4,
-                          intensity: 0.75,
-                          lightSource: LightSource.topLeft,
-                        ),
-                        child: NeumorphicText(
-                          "99",
-                          style: NeumorphicStyle(
-                              color: NeumorphicTheme.defaultTextColor(context)),
-                          textStyle: NeumorphicTextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        depth: 0,
                       ),
-                    ],
-                  ),*/
+                      textStyle: NeumorphicTextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Chart(
+                  data: data,
                 ),
               ),
             ],

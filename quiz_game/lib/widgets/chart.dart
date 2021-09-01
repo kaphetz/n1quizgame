@@ -12,7 +12,7 @@ class Chart extends StatelessWidget {
     return ClipPath(
       clipper: ChartClipper(
         data: data,
-        maxValue: data.reduce(max),
+        maxValue: 100,
       ),
       child: Container(
         decoration: BoxDecoration(

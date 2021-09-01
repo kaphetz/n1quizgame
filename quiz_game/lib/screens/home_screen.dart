@@ -1,7 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:quiz_game/blocs/home_bloc/home_bloc.dart';
+import 'package:quiz_game/blocs/home_bloc/home_state.dart';
+import 'package:quiz_game/models/result.dart';
 import 'package:quiz_game/widgets/chart.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,14 +17,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final data = [10.0, 30.0, 50.0, 40.0, 35.0, 55.0, 70.0, 30.0];
+  Completer<void> _completer;
+  final data = [10.0, 30.0, 50.0];
+
+  @override
+  void initState() {
+    super.initState();
+    _completer = Completer<void>();
+  }
+
+  void _addToChartData(List<Result> results) {
+    for (final item in results) {
+      data.clear();
+      data.add(item.points.toDouble());
+    }
+  }
 
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
         appBar: NeumorphicAppBar(
-          leading: _changeThemeButton(context),
+          //leading: _changeThemeButton(context),
           actions: [
             _infoButton(context),
           ],
@@ -34,19 +53,35 @@ class _HomeScreenState extends State<HomeScreen> {
             right: 16,
             bottom: 16,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _startButton(context),
-              SizedBox(
-                height: 40,
-              ),
-              _pointsOfGame(context),
-              SizedBox(
-                height: 20,
-              ),
-              _achievement(context),
-            ],
+          child: BlocConsumer<HomeBloc, HomeState>(
+            listener: (context, state) {
+              if (state is HomeSuccess) {
+                _completer?.complete();
+                _completer = Completer();
+              }
+            },
+            builder: (context, state) {
+              if (state is HomeSuccess) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    _startButton(context),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    _pointsOfGame(context, state.lastResult, state.bestResult),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _achievement(context, state.results),
+                  ],
+                );
+              } else if (state is HomeLoading) {
+                return Center(child: CupertinoActivityIndicator());
+              } else {
+                return Container();
+              }
+            },
           ),
         ),
       ),
@@ -101,7 +136,12 @@ class _HomeScreenState extends State<HomeScreen> {
         color: NeumorphicTheme.defaultTextColor(context),
         size: 28,
       ),
-      onPressed: () {},
+      onPressed: () {
+        NeumorphicTheme.of(context).themeMode =
+            NeumorphicTheme.isUsingDark(context)
+                ? ThemeMode.light
+                : ThemeMode.dark;
+      },
     );
   }
 
@@ -134,9 +174,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _pointsOfGame(BuildContext context) {
+  Widget _pointsOfGame(
+      BuildContext context, Result lastResult, Result bestResult) {
     return Container(
-      height: 200,
+      height: 170,
       child: Row(
         children: [
           Expanded(
@@ -159,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       depth: 0,
                     ),
                     textStyle: NeumorphicTextStyle(
-                      fontSize: 28,
+                      fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -170,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       NeumorphicText(
-                        "80",
+                        '${lastResult.points}',
                         style: NeumorphicStyle(
                           color: NeumorphicTheme.defaultTextColor(context),
                           depth: 0,
@@ -197,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 10,
                   ),
                   NeumorphicText(
-                    "in 130 seconds",
+                    "in ${lastResult.playingTime} seconds",
                     style: NeumorphicStyle(
                       color: NeumorphicTheme.defaultTextColor(context),
                       depth: 0,
@@ -219,7 +260,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: NeumorphicStyle(
                 shape: NeumorphicShape.flat,
                 boxShape:
-                    NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
                 depth: 2,
                 intensity: 0.8,
                 lightSource: LightSource.topLeft,
@@ -234,7 +275,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       depth: 0,
                     ),
                     textStyle: NeumorphicTextStyle(
-                      fontSize: 28,
+                      fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -245,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       NeumorphicText(
-                        "100",
+                        "${bestResult.points}",
                         style: NeumorphicStyle(
                           color: NeumorphicTheme.defaultTextColor(context),
                           depth: 0,
@@ -272,7 +313,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 10,
                   ),
                   NeumorphicText(
-                    "in 60 seconds",
+                    "in ${bestResult.playingTime} seconds",
                     style: NeumorphicStyle(
                       color: NeumorphicTheme.defaultTextColor(context),
                       depth: 0,
@@ -291,7 +332,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _achievement(BuildContext context) {
+  Widget _achievement(BuildContext context, List<Result> results) {
+    _addToChartData(results);
     return Expanded(
       child: Neumorphic(
         style: NeumorphicStyle(
@@ -311,28 +353,50 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   children: [
                     NeumorphicText(
-                      "Achievement",
+                      "Achievement chart",
                       style: NeumorphicStyle(
                         color: NeumorphicTheme.defaultTextColor(context),
                         depth: 0,
                       ),
                       textStyle: NeumorphicTextStyle(
-                        fontSize: 30,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
                 ),
               ),
-              Expanded(
-                flex: 3,
-                child: Chart(
-                  data: data,
-                ),
-              ),
+              _showChart(),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _showChart() {
+    if (data.length < 5) {
+      return Expanded(
+        flex: 3,
+        child: Center(
+          child: NeumorphicText(
+            "Play at least 5 games to show the chart",
+            style: NeumorphicStyle(
+              color: NeumorphicTheme.defaultTextColor(context),
+              depth: 0,
+            ),
+            textStyle: NeumorphicTextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      );
+    }
+    return Expanded(
+      flex: 3,
+      child: Chart(
+        data: data,
       ),
     );
   }

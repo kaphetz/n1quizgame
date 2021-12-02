@@ -4,16 +4,26 @@ import 'package:sqflite/sqflite.dart';
 
 
 class WordRepositories {
-  Future<Word> getFirstWord(Database db) async {
+  Future<List<Word>> selectListWord(Database db) async {
     var results = await db.query(
       wordTableName,
       columns: [
         columnId,
         columnWord,
+        columnYomikata,
+        columnMean,
       ],
-      limit: 1,
+      where: '$columnNumberOfOccurences < 20',
     );
-    return Word.fromMap(results.first);
+    if (results.length == 0){
+      return null;
+    } else {
+      List<Word> listResult = [];
+      for(final item in results){
+        listResult.add(Word.fromMap(item));
+      }
+      return listResult;
+    }
   }
 
 }

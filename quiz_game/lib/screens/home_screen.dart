@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
       onWillPop: () async => false,
       child: Scaffold(
         appBar: NeumorphicAppBar(
-          //leading: _changeThemeButton(context),
+          leading: _changeThemeButton(context),
           actions: [
             _infoButton(context),
           ],
@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
       style: NeumorphicStyle(
         intensity: 0.75,
         shape: NeumorphicShape.flat,
-        depth: 2,
+        depth: 4,
         boxShape: NeumorphicBoxShape.roundRect(
           BorderRadius.circular(100),
         ),
@@ -128,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
       style: NeumorphicStyle(
         intensity: 0.75,
         shape: NeumorphicShape.flat,
-        depth: 2,
+        depth: 4,
         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(100)),
       ),
       child: Icon(
@@ -186,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 shape: NeumorphicShape.flat,
                 boxShape:
                     NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                depth: 2,
+                depth: 4,
                 intensity: 0.8,
                 lightSource: LightSource.topLeft,
               ),
@@ -261,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 shape: NeumorphicShape.flat,
                 boxShape:
                 NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                depth: 2,
+                depth: 4,
                 intensity: 0.8,
                 lightSource: LightSource.topLeft,
               ),
@@ -339,7 +339,7 @@ class _HomeScreenState extends State<HomeScreen> {
         style: NeumorphicStyle(
           shape: NeumorphicShape.flat,
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-          depth: 2,
+          depth: 4,
           intensity: 0.8,
           lightSource: LightSource.topLeft,
         ),

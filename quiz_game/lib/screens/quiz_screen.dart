@@ -1,6 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:quiz_game/screens/result_screen.dart';
+import 'package:quiz_game/blocs/quiz_bloc/quiz_bloc.dart';
+import 'package:quiz_game/blocs/quiz_bloc/quiz_event.dart';
+import 'package:quiz_game/blocs/quiz_bloc/quiz_state.dart';
+import 'package:quiz_game/models/question.dart';
+import 'package:quiz_game/models/word.dart';
 import 'package:quiz_game/widgets/wave_view.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -9,7 +16,44 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  int _groupValue;
+  Word _groupValue;
+  double _completePercent;
+  List<Word> _listWord;
+  int _count;
+  Word _currentWord;
+  List<Question> _answeredQuestions = [];
+  List<Word> _otherWords = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _count = 0;
+    _completePercent = 0.0;
+  }
+
+  void _getWordForTest() {
+    if (_listWord.length > 0) {
+      final random = new Random();
+      var index = random.nextInt(_listWord.length);
+      _currentWord = _listWord[index];
+      _listWord.removeAt(index);
+
+      index = random.nextInt(_listWord.length);
+      _otherWords.add(_listWord[index]);
+
+      var index2 = random.nextInt(_listWord.length);
+      while (index2 == index) {
+        index2 = random.nextInt(_listWord.length);
+      }
+      _otherWords.add(_listWord[index2]);
+
+      var index3 = random.nextInt(_listWord.length);
+      while (index3 == index || index3 == index2) {
+        index3 = random.nextInt(_listWord.length);
+      }
+      _otherWords.add(_listWord[index3]);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +85,7 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
               child: WaveView(
                 height: 56,
-                percentageValue: 50.0,
+                percentageValue: _completePercent,
               ),
             ),
           ],
@@ -55,38 +99,47 @@ class _QuizScreenState extends State<QuizScreen> {
             right: 16,
             bottom: 16,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _question(context),
-              SizedBox(
-                height: 20,
-              ),
-              _description(context),
-              SizedBox(
-                height: 40,
-              ),
-              _answer(context),
-              _nextButton(context),
-            ],
+          child: BlocBuilder<QuizBloc, QuizState>(
+            builder: (context, state) {
+              if (state is GetWordSuccess) {
+                _listWord = state.listWords;
+                _getWordForTest();
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    _question(context, _currentWord),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _description(context),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    _answer(context, _currentWord, _otherWords),
+                    _nextButton(context),
+                  ],
+                );
+              }
+              return Container();
+            },
           ),
         ),
       ),
     );
   }
 
-  Widget _question(BuildContext context) {
+  Widget _question(BuildContext context, Word question) {
     return Expanded(
       flex: 5,
       child: Center(
         child: NeumorphicText(
-          '就職',
+          question.word,
           style: NeumorphicStyle(
             color: NeumorphicTheme.defaultTextColor(context),
             depth: 0,
           ),
           textStyle: NeumorphicTextStyle(
-            fontSize: 40,
+            fontSize: 30,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -122,7 +175,10 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
-  Widget _answer(BuildContext context) {
+  Widget _answer(BuildContext context, Word currentWord, List<Word> otherWord) {
+    final listAnswer = [currentWord];
+    listAnswer.addAll(otherWord);
+    listAnswer.shuffle();
     return Expanded(
       flex: 10,
       child: Padding(
@@ -141,7 +197,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 width: 200,
                 child: Center(
                   child: NeumorphicText(
-                    'とうろく',
+                    listAnswer[0].yomikata,
                     style: NeumorphicStyle(
                       color: NeumorphicTheme.defaultTextColor(context),
                       depth: 0,
@@ -153,12 +209,10 @@ class _QuizScreenState extends State<QuizScreen> {
                   ),
                 ),
               ),
-              value: 1,
+              value: listAnswer[0],
               groupValue: _groupValue,
               onChanged: (value) {
-                setState(() {
-                  _groupValue = value;
-                });
+                _groupValue = value;
               },
             ),
             SizedBox(height: 15),
@@ -173,7 +227,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 width: 50,
                 child: Center(
                   child: NeumorphicText(
-                    'とうろく',
+                    listAnswer[1].yomikata,
                     style: NeumorphicStyle(
                       color: NeumorphicTheme.defaultTextColor(context),
                       depth: 0,
@@ -185,12 +239,10 @@ class _QuizScreenState extends State<QuizScreen> {
                   ),
                 ),
               ),
-              value: 2,
+              value: listAnswer[1],
               groupValue: _groupValue,
               onChanged: (value) {
-                setState(() {
-                  _groupValue = value;
-                });
+                _groupValue = value;
               },
             ),
             SizedBox(height: 15),
@@ -205,7 +257,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 width: 50,
                 child: Center(
                   child: NeumorphicText(
-                    'とうろく',
+                    listAnswer[2].yomikata,
                     style: NeumorphicStyle(
                       color: NeumorphicTheme.defaultTextColor(context),
                       depth: 0,
@@ -217,19 +269,17 @@ class _QuizScreenState extends State<QuizScreen> {
                   ),
                 ),
               ),
-              value: 3,
+              value: listAnswer[2],
               groupValue: _groupValue,
               onChanged: (value) {
-                setState(() {
-                  _groupValue = value;
-                });
+                _groupValue = value;
               },
             ),
             SizedBox(height: 15),
             NeumorphicRadio(
               style: NeumorphicRadioStyle(
                 intensity: 0.75,
-                unselectedDepth: 4,
+                unselectedDepth: -4,
               ),
               duration: const Duration(milliseconds: 50),
               child: SizedBox(
@@ -237,7 +287,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 width: 50,
                 child: Center(
                   child: NeumorphicText(
-                    'とうろく',
+                    listAnswer[3].yomikata,
                     style: NeumorphicStyle(
                       color: NeumorphicTheme.defaultTextColor(context),
                       depth: 0,
@@ -249,12 +299,10 @@ class _QuizScreenState extends State<QuizScreen> {
                   ),
                 ),
               ),
-              value: 4,
+              value: listAnswer[3],
               groupValue: _groupValue,
               onChanged: (value) {
-                setState(() {
                   _groupValue = value;
-                });
               },
             ),
           ],
@@ -293,7 +341,24 @@ class _QuizScreenState extends State<QuizScreen> {
         ],
       ),
       onPressed: () {
-        Navigator.pushNamed(context, '/result');
+        if (_count < 20) {
+          _answeredQuestions.add(Question(
+            id: _currentWord.id,
+            isCorrect: _groupValue.id == _currentWord.id,
+            word: _currentWord.word,
+            number: _count,
+          ));
+          _count++;
+          _otherWords.clear();
+          BlocProvider.of<QuizBloc>(context).add(
+            ChangeQuestion(listWord: _listWord),
+          );
+          setState(() {
+            _completePercent += 5.0;
+          });
+        } else {
+          Navigator.pushNamed(context, '/result');
+        }
       },
     );
   }
@@ -314,24 +379,23 @@ class _QuizScreenState extends State<QuizScreen> {
 
   Widget _homeButton(BuildContext context) {
     return NeumorphicButton(
-      style: NeumorphicStyle(
-        intensity: 0.75,
-        shape: NeumorphicShape.flat,
-        depth: 4,
-        boxShape: NeumorphicBoxShape.roundRect(
-          BorderRadius.circular(100),
+        style: NeumorphicStyle(
+          intensity: 0.75,
+          shape: NeumorphicShape.flat,
+          depth: 4,
+          boxShape: NeumorphicBoxShape.roundRect(
+            BorderRadius.circular(100),
+          ),
         ),
-      ),
-      child: Icon(
-        Icons.home,
-        size: 30,
-        color: NeumorphicTheme.defaultTextColor(context),
-      ),
-      onPressed: () {
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
-      }
-    );
+        child: Icon(
+          Icons.home,
+          size: 30,
+          color: NeumorphicTheme.defaultTextColor(context),
+        ),
+        onPressed: () {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              '/home', (Route<dynamic> route) => false);
+        });
   }
 }
 
